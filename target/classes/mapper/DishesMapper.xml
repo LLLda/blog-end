@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- namespace填对应的mapper路径 -->
+<mapper namespace="com.example.demo.mapper.DishesMapper">
+
+    <!-- 映射map id=起个名字 type=对应的entity -->
+    <resultMap id="menu" type="com.example.demo.entity.Dishes" >
+        <result column="dishes_id" property="dishes_id" />
+        <result column="dishes_name" property="dishes_name" />
+        <result column="dishes_content" property="dishes_content" />
+        <result column="dishes_content" property="dishes_content" />
+        <result column="dishes_status" property="dishes_status" />
+        <result column="menu_id" property="menu_id" />
+    </resultMap>
+
+    <!--  -->
+    <select id="findListByMenuIds" resultMap="menu" >
+        select * from bc_dishes where menu_id in
+        <foreach collection="menuIds" item="id" open="(" close=")" separator="," >
+            #{id}
+        </foreach>
+    </select>
+</mapper>

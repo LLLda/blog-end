@@ -1,0 +1,7 @@
+com\example\demo\interfaces\MenuInterface.class
+com\example\demo\controller\UploadFileController.class
+com\example\demo\config\FileUploadConfig.class
+com\example\demo\service\DishesService.class
+com\example\demo\interfaces\DishesInterface.class
+com\example\demo\service\MenuService.class
+com\example\demo\vo\GoodsVO.class

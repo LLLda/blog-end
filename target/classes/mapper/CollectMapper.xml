@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- namespace填对应的mapper路径 -->
+<mapper namespace="com.example.demo.mapper.CollectMapper">
+
+    <!-- 映射map id=起个名字 type=对应的entity -->
+    <resultMap id="collect" type="com.example.demo.entity.Collect" >
+        <result column="collect_id" property="collect_id" />
+        <result column="userC_id" property="userC_id" />
+        <result column="topic_id" property="topic_id" />
+    </resultMap>
+
+    <!--  -->
+    <select id="getCollectAll" resultMap="collect" >
+        select distinct userC_id,topic_id from tb_collect where topic_id in
+        <foreach collection="topicIds" item="id" open="(" close=")" separator="," >
+            #{id}
+        </foreach>
+    </select>
+</mapper>

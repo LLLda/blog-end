@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- namespace填对应的mapper路径 -->
+<mapper namespace="com.example.demo.mapper.UserCMapper">
+    <!-- 映射map id=起个名字 type=对应的entity -->
+    <resultMap id="comment" type="com.example.demo.entity.UserC" >
+        <result column="userC_Id" property="userC_Id" />
+        <result column="userC_name" property="userC_name" />
+        <result column="userC_title" property="userC_title" />
+        <result column="userC_realStatus" property="userC_realStatus" />
+        <result column="userC_imgUrl" property="userC_imgUrl" />
+    </resultMap>
+    <select id="getUserCById" resultMap="comment" >
+        select * from tb_userC where userC_id in
+        <foreach collection="userCIds" item="id" open="(" close=")" separator="," >
+            #{id}
+        </foreach>
+    </select>
+</mapper>

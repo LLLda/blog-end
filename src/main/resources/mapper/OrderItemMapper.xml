@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- namespace填对应的mapper路径 -->
+<mapper namespace="com.example.demo.mapper.OrderItemMapper">
+
+    <!-- 映射map id=起个名字 type=对应的entity -->
+    <resultMap id="order" type="com.example.demo.entity.OrderItem" >
+        <result column="orderitem_id" property="orderitem_id" />
+        <result column="count" property="count" />
+        <result column="order_id" property="order_id" />
+        <result column="dishes_id" property="dishes_id" />
+        <collection property="dishes" javaType="com.example.demo.entity.Dishes">
+            <id column="dishes_id" property="dishes_id" />
+            <result column="dishes_name" property="dishes_name" />
+            <result column="dishes_content" property="dishes_content"  />
+            <result column="dishes_status" property="dishes_status"  />
+            <result column="dishes_price" property="dishes_price" />
+            <result column="menu_id" property="menu_id"  />
+            <result column="dishes_imgUrl" property="dishes_imgUrl" />
+        </collection>
+    </resultMap>
+
+    <!--  -->
+    <select id="findListByOrderIds" resultMap="order" >
+        select * from bc_orderitem,bc_dishes where order_id in
+        <foreach collection="orderIds" item="id" open="(" close=")" separator="," >
+            #{id}
+        </foreach>
+        and bc_orderitem.dishes_id = bc_dishes.dishes_id
+    </select>
+
+
+    <resultMap id="order1" type="com.example.demo.vo.OrderItem" >
+        <result column="orderitem_id" property="orderitem_id" />
+        <result column="count" property="count" />
+        <result column="order_id" property="order_id" />
+        <result column="dishes_id" property="dishes_id" />
+        <collection property="dishes" javaType="com.example.demo.entity.Dishes">
+            <id column="dishes_id" property="dishes_id" />
+            <result column="dishes_name" property="dishes_name" />
+            <result column="dishes_content" property="dishes_content"  />
+            <result column="dishes_status" property="dishes_status"  />
+            <result column="dishes_price" property="dishes_price" />
+            <result column="menu_id" property="menu_id"  />
+            <result column="dishes_imgUrl" property="dishes_imgUrl" />
+        </collection>
+    </resultMap>
+
+    <select id="findAll" resultMap="order1" >
+        select * from bc_orderitem,bc_dishes where order_id = #{orderIds}
+        and bc_orderitem.dishes_id = bc_dishes.dishes_id limit 1
+    </select>
+</mapper>
